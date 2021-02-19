@@ -9,13 +9,13 @@ import {
 } from 'react-native'
 import { Context } from '../context/BlogContext'
 import { FontAwesome } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
 const IndexScreen = ({ navigation }) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context)
+  const { state, deleteBlogPost } = useContext(Context)
 
   return (
     <View>
-      <Button title='Add Post' onPress={addBlogPost} />
       <FlatList
         data={state}
         keyExtractor={(blogPost) => blogPost.title}
@@ -44,6 +44,21 @@ const IndexScreen = ({ navigation }) => {
   )
 }
 
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+        <AntDesign
+          marginRight={10}
+          name='pluscircleo'
+          size={24}
+          color='black'
+        />
+      </TouchableOpacity>
+    ),
+  }
+}
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
@@ -58,6 +73,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 24,
+  },
+  plus: {
+    marginRight: 10,
+    color: 'blue',
   },
 })
 
